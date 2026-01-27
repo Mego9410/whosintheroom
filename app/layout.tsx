@@ -23,7 +23,25 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
+      <head>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              (function() {
+                const savedTheme = localStorage.getItem('theme');
+                if (!savedTheme) {
+                  document.documentElement.removeAttribute('data-theme');
+                } else if (savedTheme === 'dark') {
+                  document.documentElement.setAttribute('data-theme', 'dark');
+                } else {
+                  document.documentElement.removeAttribute('data-theme');
+                }
+              })();
+            `,
+          }}
+        />
+      </head>
       <body>
         {/* Theme Toggle - Fixed Position */}
         <div className="fixed top-6 right-6 z-50">

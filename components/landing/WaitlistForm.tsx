@@ -35,9 +35,24 @@ export function WaitlistForm() {
     setIsSubmitting(true);
 
     try {
-      // TODO: Replace with actual API call in Phase 0.4
-      await new Promise((resolve) => setTimeout(resolve, 1000));
-      
+      const response = await fetch('/api/waitlist', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          email: email.trim(),
+          name: name.trim() || undefined,
+        }),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        setError(data.error || 'Something went wrong. Please try again.');
+        return;
+      }
+
       setSuccess(true);
       setEmail('');
       setName('');
