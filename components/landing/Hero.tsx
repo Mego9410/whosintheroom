@@ -1,20 +1,60 @@
 'use client';
 
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Button } from '@/components/ui/Button';
+import { AnimatedMockup } from '@/components/landing/AnimatedMockup';
 import { cn } from '@/lib/utils/cn';
 
+const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
 export function Hero() {
-  const [isVisible, setIsVisible] = React.useState(false);
+  const [isVisible, setIsVisible] = useState(false);
+  const [heroEmail, setHeroEmail] = useState('');
+  const [heroSubmitting, setHeroSubmitting] = useState(false);
+  const [heroError, setHeroError] = useState('');
+  const [heroSuccess, setHeroSuccess] = useState(false);
 
   useEffect(() => {
     setIsVisible(true);
   }, []);
 
-  const scrollToFeatures = () => {
-    const featuresSection = document.getElementById('features');
-    if (featuresSection) {
-      featuresSection.scrollIntoView({ behavior: 'smooth' });
+  const scrollToSection = (id: string) => {
+    const el = document.getElementById(id);
+    if (el) el.scrollIntoView({ behavior: 'smooth' });
+  };
+
+  const scrollToHowItWorks = () => scrollToSection('how-it-works');
+  const scrollToWaitlist = () => scrollToSection('waitlist');
+
+  const handleHeroSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setHeroError('');
+    if (!heroEmail?.trim()) {
+      setHeroError('Enter your email');
+      return;
+    }
+    if (!emailRegex.test(heroEmail.trim())) {
+      setHeroError('Valid email required');
+      return;
+    }
+    setHeroSubmitting(true);
+    try {
+      const res = await fetch('/api/waitlist', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email: heroEmail.trim() }),
+      });
+      const data = await res.json();
+      if (!res.ok) {
+        setHeroError(data.error || 'Something went wrong.');
+        return;
+      }
+      setHeroSuccess(true);
+      setHeroEmail('');
+    } catch {
+      setHeroError('Something went wrong. Try again.');
+    } finally {
+      setHeroSubmitting(false);
     }
   };
 
@@ -37,13 +77,13 @@ export function Hero() {
         <div className="absolute bottom-1/3 left-1/5 w-32 h-2 bg-[var(--color-accent-secondary)] opacity-15 -rotate-6" />
       </div>
 
-      {/* Asymmetrical Layout - Breaking Grid */}
+      {/* Asymmetrical Layout - Two columns on lg */}
       <div className="relative z-10 w-full max-w-7xl mx-auto">
-        <div className="grid lg:grid-cols-10 gap-12 items-center">
-          {/* Main Content - Offset Left, Not Centered */}
+        <div className="grid grid-cols-1 lg:grid-cols-10 gap-12 lg:gap-16 items-center">
+          {/* Main Content - Left */}
           <div
             className={cn(
-              'lg:col-span-6 lg:col-start-1',
+              'lg:col-span-6',
               'space-y-8 md:space-y-12',
               'animate-slide-in-left'
             )}
@@ -53,7 +93,7 @@ export function Hero() {
             <div className="inline-flex items-center gap-3 mb-6">
               <div className="w-12 h-px bg-[var(--color-accent)]" />
               <span className="text-sm uppercase tracking-widest text-[var(--color-text-muted)] font-medium">
-                Event Intelligence
+                For conference & summit organizers
               </span>
             </div>
 
@@ -62,46 +102,44 @@ export function Hero() {
               className={cn(
                 'font-display text-[var(--color-primary)]',
                 'leading-[0.92]',
-                'mb-8',
+                'mb-10',
                 'max-w-5xl'
               )}
               style={{ fontFamily: 'var(--font-display)' }}
             >
-              Who's in the{' '}
+              Who&apos;s in the{' '}
               <span className="relative inline-block">
                 <span className="gradient-text">Room</span>
                 <span className="absolute -bottom-1 left-0 w-full h-2 bg-[var(--color-accent)] opacity-15 -skew-x-12" />
               </span>
             </h1>
 
-            {/* Value Proposition - More Conversational */}
+            {/* Value Proposition - Outcome-led */}
             <div className="space-y-6 max-w-2xl">
               <p
                 className={cn(
-                  'text-2xl md:text-3xl lg:text-4xl',
+                  'text-3xl md:text-4xl lg:text-5xl',
                   'text-[var(--color-text)]',
                   'font-body font-light',
-                  'leading-[1.25]',
+                  'leading-[1.2]',
                   'tracking-tight'
                 )}
               >
-                Never miss a VIP again.{' '}
                 <span className="font-medium text-[var(--color-accent)]">
-                  AI identifies your most important guests
+                  AI ranks your guests
                 </span>{' '}
-                so you can focus on what matters.
+                so your whole team knows who to prioritize.
               </p>
 
               <p
                 className={cn(
-                  'text-lg md:text-xl',
+                  'text-base md:text-lg',
                   'text-[var(--color-text-muted)]',
                   'font-body',
-                  'leading-relaxed',
-                  'max-w-xl'
+                  'leading-relaxed'
                 )}
               >
-                The complete platform for corporate event managers who need to prioritize, organize, and coordinate with precision.
+                Ditch spreadsheets. Share prioritized lists with your team and suppliers in real time.
               </p>
             </div>
 
@@ -113,7 +151,7 @@ export function Hero() {
                 'pt-2'
               )}
             >
-              <Button size="lg" variant="primary" className="min-w-[220px] group">
+              <Button size="lg" variant="primary" className="min-w-[220px] group" onClick={scrollToWaitlist}>
                 <span>Join Waitlist</span>
                 <svg className="w-5 h-5 ml-2 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
@@ -122,57 +160,92 @@ export function Hero() {
               <Button
                 size="lg"
                 variant="outline"
-                onClick={scrollToFeatures}
+                onClick={scrollToHowItWorks}
                 className="min-w-[220px]"
               >
                 See How It Works
               </Button>
             </div>
 
-            {/* Trust Indicator - More Human */}
-            <div className="pt-4">
-              <p className="text-sm text-[var(--color-text-light)] font-body">
-                <span className="font-semibold text-[var(--color-text)]">Free forever</span> for early access. No credit card required.
+            {/* Inline email capture - high-intent */}
+            <div className="pt-2 max-w-xl">
+              {heroSuccess ? (
+                <div className="flex items-center gap-3 px-4 py-3 rounded-xl bg-[var(--color-surface)] border-2 border-[var(--color-accent)]/30">
+                  <div className="flex-shrink-0 w-10 h-10 rounded-full bg-gradient-to-r from-[#ff3b5c] to-[#ff6b35] flex items-center justify-center">
+                    <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" />
+                    </svg>
+                  </div>
+                  <p className="text-base font-semibold text-[var(--color-text)]">
+                    You&apos;re on the list. We&apos;ll be in touch.
+                  </p>
+                </div>
+              ) : (
+                <form onSubmit={handleHeroSubmit} className="flex flex-col sm:flex-row gap-3">
+                  <input
+                    type="email"
+                    value={heroEmail}
+                    onChange={(e) => setHeroEmail(e.target.value)}
+                    placeholder="you@company.com"
+                    className={cn(
+                      'flex-1 min-w-0 px-4 py-3 rounded-xl',
+                      'bg-[var(--color-surface)] border-2 border-[var(--color-border)]',
+                      'text-[var(--color-text)] placeholder:text-[var(--color-text-muted)]',
+                      'focus:outline-none focus:border-[var(--color-accent)] focus:ring-2 focus:ring-[var(--color-accent)]/20',
+                      'transition-all duration-200',
+                      heroError && 'border-red-500'
+                    )}
+                    disabled={heroSubmitting}
+                    aria-invalid={!!heroError}
+                    aria-describedby={heroError ? 'hero-email-error' : undefined}
+                  />
+                  <Button
+                    type="submit"
+                    variant="primary"
+                    size="lg"
+                    className="sm:min-w-[180px] shrink-0"
+                    disabled={heroSubmitting}
+                  >
+                    {heroSubmitting ? 'Joining…' : 'Get early access'}
+                  </Button>
+                </form>
+              )}
+              {heroError && (
+                <p id="hero-email-error" className="mt-2 text-sm text-red-500 font-body" role="alert">
+                  {heroError}
+                </p>
+              )}
+              <p className="mt-3 text-sm font-body text-[var(--color-text-muted)]">
+                <span className="font-semibold text-[var(--color-text)]">Free early access.</span> No credit card required.
               </p>
             </div>
           </div>
 
-          {/* Right Side - Visual Element with Depth */}
+          {/* Hero Visual - Right column on lg */}
           <div
             className={cn(
               'lg:col-span-4 lg:col-start-7',
-              'relative',
               'hidden lg:block',
+              'relative',
               'animate-slide-in-right'
             )}
             style={{ animationDelay: '0.4s', opacity: isVisible ? 1 : 0 }}
           >
-            {/* Layered Card Design */}
-            <div className="relative">
-              {/* Background Card - Offset */}
-              <div className="absolute top-8 left-8 w-full h-full bg-[var(--color-accent)] opacity-5 rounded-3xl transform rotate-3" />
-              
-              {/* Main Card */}
-              <div className="relative bg-[var(--color-surface)] border-2 border-[var(--color-border)] rounded-3xl p-10 shadow-2xl transform -rotate-1 hover:rotate-0 transition-transform duration-500">
-                {/* Decorative Corner */}
-                <div className="absolute -top-1 -right-1 w-20 h-20">
-                  <div className="w-full h-full border-t-4 border-r-4 border-[var(--color-accent)] rounded-tr-3xl" />
-                </div>
-                
-                {/* Content */}
-                <div className="space-y-6">
-                  <div className="text-5xl text-[var(--color-accent)] opacity-20 leading-none">
-                    "
-                  </div>
-                  <p className="text-xl font-display text-[var(--color-primary)] italic leading-relaxed">
-                    Finally, a tool that understands event management isn't just about lists—it's about relationships and priorities.
-                  </p>
-                  <div className="pt-4 border-t border-[var(--color-border)]">
-                    <p className="text-sm text-[var(--color-text-muted)] uppercase tracking-wider font-medium">
-                      Built for Event Professionals
-                    </p>
-                  </div>
-                </div>
+            <div className="relative group/mockup">
+              <div className="absolute -inset-1 bg-gradient-to-r from-[#ff3b5c] via-[#ff6b35] to-[#ffa500] rounded-2xl opacity-20 blur-xl group-hover/mockup:opacity-30 transition-opacity duration-500" />
+              <div className="absolute top-6 right-6 w-full h-full bg-gradient-to-br from-[var(--color-accent)]/10 to-transparent rounded-3xl transform rotate-3" />
+              <div
+                className={cn(
+                  'relative rounded-2xl overflow-hidden',
+                  'bg-[var(--color-surface)]',
+                  'border-2 border-[var(--color-border)]',
+                  'shadow-2xl',
+                  'transform -rotate-1 group-hover/mockup:rotate-0 group-hover/mockup:scale-[1.02]',
+                  'transition-all duration-500',
+                  'ring-2 ring-transparent group-hover/mockup:ring-[var(--color-accent)]/30'
+                )}
+              >
+                <AnimatedMockup />
               </div>
             </div>
           </div>
@@ -182,9 +255,9 @@ export function Hero() {
       {/* Scroll Indicator - More Distinctive */}
       <div className="absolute bottom-12 left-12 hidden lg:block">
         <button
-          onClick={scrollToFeatures}
+          onClick={scrollToHowItWorks}
           className="flex flex-col items-center gap-3 group"
-          aria-label="Scroll to features"
+          aria-label="Scroll to how it works"
         >
           <span className="text-xs text-[var(--color-text-light)] uppercase tracking-widest font-medium transform -rotate-90 whitespace-nowrap">
             Scroll

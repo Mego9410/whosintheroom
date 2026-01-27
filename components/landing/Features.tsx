@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useEffect, useRef, useState } from 'react';
+import Image from 'next/image';
 import { cn } from '@/lib/utils/cn';
 
 // Dynamic Interactive Preview Component
@@ -19,30 +20,30 @@ function InteractivePreview() {
 
   const previewStates = [
     {
-      title: 'AI Scoring',
-      value: '94%',
-      label: 'Accuracy',
-      bars: [85, 92, 78, 94],
+      title: 'Guest list',
+      value: '12.5K',
+      label: 'guests',
+      bars: [65, 80, 75, 88],
       color: 'from-[#ff3b5c] to-[#ff6b35]',
+    },
+    {
+      title: 'AI Score',
+      value: '94%',
+      label: 'accuracy',
+      bars: [85, 92, 78, 94],
+      color: 'from-[#ff6b35] to-[#ffa500]',
     },
     {
       title: 'Events',
       value: '247',
-      label: 'Active',
+      label: 'active',
       bars: [70, 85, 60, 90],
-      color: 'from-[#ff6b35] to-[#ffa500]',
-    },
-    {
-      title: 'Guests',
-      value: '12.5K',
-      label: 'Managed',
-      bars: [65, 80, 75, 88],
       color: 'from-[#ffa500] to-[#ff3b5c]',
     },
     {
       title: 'Import',
       value: '2.3s',
-      label: 'Avg Time',
+      label: 'avg',
       bars: [90, 95, 85, 98],
       color: 'from-[#ff3b5c] to-[#ffa500]',
     },
@@ -59,22 +60,27 @@ function InteractivePreview() {
       {/* Background Card - Animated */}
       <div className="absolute top-6 right-6 w-full h-full bg-gradient-to-br from-[var(--color-accent)]/10 to-transparent rounded-3xl transform rotate-3 group-hover:rotate-6 transition-transform duration-700" />
       
-      {/* Main Preview Card */}
-      <div className="relative bg-[var(--color-surface)] border-2 border-[var(--color-border)] rounded-3xl p-8 shadow-xl transform -rotate-1 group-hover:rotate-0 group-hover:shadow-2xl transition-all duration-500">
+      {/* Main Preview Card - UI frame */}
+      <div className="relative bg-[var(--color-surface)] border-2 border-[var(--color-border)] rounded-3xl overflow-hidden shadow-xl transform -rotate-1 group-hover:rotate-0 group-hover:shadow-2xl transition-all duration-500">
         {/* Decorative Corner - Animated */}
-        <div className="absolute -top-1 -right-1 w-16 h-16 border-t-2 border-r-2 border-[var(--color-accent)] rounded-tr-3xl opacity-30 group-hover:opacity-50 transition-opacity duration-500" />
-        
+        <div className="absolute -top-1 -right-1 w-16 h-16 border-t-2 border-r-2 border-[var(--color-accent)] rounded-tr-3xl opacity-30 group-hover:opacity-50 transition-opacity duration-500 z-10 pointer-events-none" />
+        {/* Window chrome */}
+        <div className="flex items-center gap-2 px-4 py-3 bg-[var(--color-background-alt)] border-b border-[var(--color-border)]">
+          <div className="flex gap-1.5">
+            <div className="w-2.5 h-2.5 rounded-full bg-[var(--color-border)]" />
+            <div className="w-2.5 h-2.5 rounded-full bg-[var(--color-border)]" />
+            <div className="w-2.5 h-2.5 rounded-full bg-[var(--color-border)]" />
+          </div>
+          <span className="text-xs text-[var(--color-text-muted)] font-medium ml-2">Who&apos;s in the Room — Product preview</span>
+        </div>
         {/* Preview Content */}
-        <div className="space-y-6">
+        <div className="p-8 space-y-6">
           {/* Header with Animated Dots */}
-          <div className="flex items-center justify-between mb-6">
+          <div className="flex items-center justify-between">
             <div className="flex items-center gap-2">
               <div className="w-2.5 h-2.5 rounded-full bg-gradient-to-r from-[#ff3b5c] to-[#ff6b35] animate-pulse" style={{ animationDelay: '0s' }} />
               <div className="w-2.5 h-2.5 rounded-full bg-gradient-to-r from-[#ff6b35] to-[#ffa500] animate-pulse" style={{ animationDelay: '0.2s' }} />
               <div className="w-2.5 h-2.5 rounded-full bg-gradient-to-r from-[#ffa500] to-[#ff3b5c] animate-pulse" style={{ animationDelay: '0.4s' }} />
-            </div>
-            <div className="text-xs uppercase tracking-wider text-[var(--color-text-muted)] font-medium">
-              Live Preview
             </div>
           </div>
           
@@ -113,7 +119,7 @@ function InteractivePreview() {
               {currentState.bars.map((value, index) => (
                 <div key={index} className="space-y-1.5">
                   <div className="flex justify-between text-xs text-[var(--color-text-muted)]">
-                    <span>Metric {index + 1}</span>
+                    <span>{['VIP score', 'Influence', 'Role', 'Company'][index]}</span>
                     <span className="font-medium">{value}%</span>
                   </div>
                   <div className="relative h-2.5 bg-[var(--color-border)] rounded-full overflow-hidden">
@@ -201,9 +207,9 @@ const features: Feature[] = [
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
       </svg>
     ),
-    title: 'AI-Powered Guest Importance Scoring',
+    title: 'Never miss a VIP',
     description:
-      'Automatically identify your most valuable guests using advanced AI that analyzes job titles, company influence, and relationships. Never miss a VIP again.',
+      'AI scores guests by influence, job title, and company. Share prioritized lists with your team so everyone knows who matters most.',
   },
   {
     color: 'from-[#ff6b35] to-[#ffa500]',
@@ -212,9 +218,9 @@ const features: Feature[] = [
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
       </svg>
     ),
-    title: 'Complete CRM for Event Management',
+    title: 'One place for events and guests',
     description:
-      'Organize all your events, guests, and relationships in one powerful platform. Track RSVPs, manage contacts, and coordinate seamlessly.',
+      'Organize events, guests, and relationships in a single platform. Your team and suppliers see the same real-time data—no more scattered spreadsheets or outdated lists.',
   },
   {
     color: 'from-[#ffa500] to-[#ff3b5c]',
@@ -223,9 +229,9 @@ const features: Feature[] = [
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z" />
       </svg>
     ),
-    title: 'Mobile Apps for Suppliers',
+    title: 'Check off guests in real time',
     description:
-      'Empower your team with real-time mobile apps. Suppliers can check off guests, add notes, and sync updates instantly across all devices.',
+      'Suppliers use mobile apps to check off guests and add notes. Your whole team—organizers, staff, and suppliers—stays aligned with live updates.',
   },
   {
     color: 'from-[#ff3b5c] to-[#ffa500]',
@@ -234,9 +240,9 @@ const features: Feature[] = [
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
       </svg>
     ),
-    title: 'Easy CSV/Excel Import',
+    title: 'Import thousands of guests in seconds',
     description:
-      'Import thousands of guests in seconds with intelligent column mapping. Our system automatically detects and maps your data fields.',
+      'Upload CSV or Excel—we detect and map columns automatically. No manual mapping or duplicate entry. Get your lists ready fast.',
   },
 ];
 
@@ -315,8 +321,8 @@ export function Features() {
               )}
               style={{ fontFamily: 'var(--font-display)' }}
             >
-              Everything you need,{' '}
-              <span className="gradient-text">designed for humans</span>
+              Understand your audience.{' '}
+              <span className="gradient-text">Share insights with your team.</span>
             </h2>
             <p
               className={cn(
@@ -334,6 +340,23 @@ export function Features() {
           <div className="lg:col-span-6 hidden lg:block">
             <InteractivePreview />
           </div>
+        </div>
+
+        {/* Product mockup - visible on mobile (replaces hidden InteractivePreview), supplemental on desktop */}
+        <div className="mb-16 md:mb-20 lg:hidden">
+          <div className="rounded-2xl overflow-hidden border-2 border-[var(--color-border)] bg-[var(--color-surface)] shadow-xl">
+            <Image
+              src="/hero-mockup.svg"
+              alt="Guest list with AI importance scores"
+              width={480}
+              height={360}
+              className="w-full h-auto object-contain"
+              unoptimized
+            />
+          </div>
+          <p className="mt-4 text-sm text-[var(--color-text-muted)] font-body text-center">
+            Guest list with AI importance scores
+          </p>
         </div>
 
         {/* Feature Grid - Asymmetrical, Overlapping */}
