@@ -5,16 +5,36 @@ import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { GuestForm } from '@/components/guests/GuestForm';
 import { createGuest } from '@/lib/data/guests';
-import type { CreateGuestInput } from '@/lib/types';
+import type { CreateGuestInput, UpdateGuestInput } from '@/lib/types';
 
 export default function NewGuestPage() {
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
 
-  const handleSubmit = async (data: CreateGuestInput) => {
+  const handleSubmit = async (data: CreateGuestInput | UpdateGuestInput) => {
     try {
       setIsLoading(true);
-      const newGuest = await createGuest(data);
+      // Validate required fields for creation
+      if (!data.first_name || !data.last_name || !data.email) {
+        alert('Please fill in all required fields (first name, last name, email)');
+        setIsLoading(false);
+        return;
+      }
+      
+      // Ensure all required fields are present for creation
+      const createData: CreateGuestInput = {
+        organization_id: data.organization_id || 'org_default',
+        first_name: data.first_name,
+        last_name: data.last_name,
+        email: data.email,
+        company: data.company,
+        job_title: data.job_title,
+        phone: data.phone,
+        address: data.address,
+        notes: data.notes,
+        created_by: data.created_by || 'user_default',
+      };
+      const newGuest = await createGuest(createData);
       router.push(`/guests/${newGuest.id}`);
     } catch (error) {
       console.error('Error creating guest:', error);
