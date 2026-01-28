@@ -15,7 +15,7 @@ import { getGuestsByEvent } from '@/lib/data/event-guests';
 import type { Event } from '@/lib/types';
 import type { Guest } from '@/lib/types';
 
-const statusColors: Record<Event['status'], 'default' | 'success' | 'warning' | 'danger'> = {
+const statusColors: Record<Event['status'], 'default' | 'success' | 'warning' | 'danger' | 'info'> = {
   draft: 'default',
   active: 'success',
   completed: 'info',
