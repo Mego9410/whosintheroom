@@ -8,7 +8,7 @@ interface EventCardProps {
   event: Event;
 }
 
-const statusColors: Record<Event['status'], 'default' | 'success' | 'warning' | 'danger'> = {
+const statusColors: Record<Event['status'], 'default' | 'success' | 'warning' | 'danger' | 'info'> = {
   draft: 'default',
   active: 'success',
   completed: 'info',
