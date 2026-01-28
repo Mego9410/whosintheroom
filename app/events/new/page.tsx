@@ -5,16 +5,33 @@ import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { EventForm } from '@/components/events/EventForm';
 import { createEvent } from '@/lib/data/events';
-import type { CreateEventInput } from '@/lib/types';
+import type { CreateEventInput, UpdateEventInput } from '@/lib/types';
 
 export default function NewEventPage() {
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
 
-  const handleSubmit = async (data: CreateEventInput) => {
+  const handleSubmit = async (data: CreateEventInput | UpdateEventInput) => {
     try {
       setIsLoading(true);
-      const newEvent = await createEvent(data);
+      // Validate required fields for creation
+      if (!data.name || !data.date || !data.location) {
+        alert('Please fill in all required fields (name, date, location)');
+        setIsLoading(false);
+        return;
+      }
+      
+      // Ensure all required fields are present for creation
+      const createData: CreateEventInput = {
+        organization_id: data.organization_id || 'org_default',
+        name: data.name,
+        date: data.date,
+        location: data.location,
+        description: data.description,
+        status: (data.status || 'draft') as 'draft' | 'active' | 'completed' | 'cancelled',
+        created_by: data.created_by || 'user_default',
+      };
+      const newEvent = await createEvent(createData);
       router.push(`/events/${newEvent.id}`);
     } catch (error) {
       console.error('Error creating event:', error);
