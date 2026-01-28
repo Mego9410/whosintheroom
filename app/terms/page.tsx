@@ -146,8 +146,8 @@ export default function TermsPage() {
               </h2>
               <p>
                 For questions about these terms, contact us at{' '}
-                <a href="mailto:legal@whosintheroom.com" className="text-[var(--color-accent)] hover:underline">
-                  legal@whosintheroom.com
+                <a href="mailto:legal@guestsync.com" className="text-[var(--color-accent)] hover:underline">
+                  legal@guestsync.com
                 </a>
                 .
               </p>

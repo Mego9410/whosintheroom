@@ -144,7 +144,7 @@ export function WaitlistForm() {
               'leading-relaxed'
             )}
           >
-            Be first to try Who&apos;s in the Room. Free early access—no credit card required.
+            Be first to try GuestSync. Free early access—no credit card required.
           </p>
         </div>
 

@@ -125,8 +125,8 @@ export default function PrivacyPolicyPage() {
               </h2>
               <p>
                 For privacy-related requests or questions, contact us at{' '}
-                <a href="mailto:privacy@whosintheroom.com" className="text-[var(--color-accent)] hover:underline">
-                  privacy@whosintheroom.com
+                <a href="mailto:privacy@guestsync.com" className="text-[var(--color-accent)] hover:underline">
+                  privacy@guestsync.com
                 </a>
                 . We will respond within a reasonable time.
               </p>
