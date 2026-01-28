@@ -41,6 +41,8 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning className={`${dmSerifDisplay.variable} ${dmSans.variable}`}>
       <head>
+        <meta charSet="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
@@ -63,20 +65,24 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{
             __html: `
               (function() {
-                const savedTheme = localStorage.getItem('theme');
-                if (!savedTheme) {
-                  document.documentElement.removeAttribute('data-theme');
-                } else if (savedTheme === 'dark') {
-                  document.documentElement.setAttribute('data-theme', 'dark');
-                } else {
-                  document.documentElement.removeAttribute('data-theme');
+                try {
+                  const savedTheme = localStorage.getItem('theme');
+                  if (!savedTheme) {
+                    document.documentElement.removeAttribute('data-theme');
+                  } else if (savedTheme === 'dark') {
+                    document.documentElement.setAttribute('data-theme', 'dark');
+                  } else {
+                    document.documentElement.removeAttribute('data-theme');
+                  }
+                } catch (e) {
+                  console.warn('Theme initialization error:', e);
                 }
               })();
             `,
           }}
         />
       </head>
-      <body>
+      <body className="antialiased">
         <Suspense fallback={null}>
           <GoogleAnalytics />
         </Suspense>

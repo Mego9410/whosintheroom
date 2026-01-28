@@ -6,7 +6,7 @@ export function getOrganizationSchema() {
     '@type': 'Organization',
     name: 'GuestSync',
     url: baseUrl,
-    logo: `${baseUrl}/logo.png`,
+    logo: `${baseUrl}/logo.svg`,
     description: 'AI-powered event guest management platform for B2B conferences and summits',
     contactPoint: {
       '@type': 'ContactPoint',
@@ -129,7 +129,7 @@ export function getArticleSchema(post: {
       name: 'GuestSync',
       logo: {
         '@type': 'ImageObject',
-        url: `${baseUrl}/logo.png`,
+        url: `${baseUrl}/logo.svg`,
       },
     },
     mainEntityOfPage: {

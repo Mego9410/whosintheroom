@@ -279,28 +279,9 @@ export function Features() {
       ref={sectionRef}
       className={cn(
         'relative pt-16 md:pt-20 pb-12 md:pb-16 px-6 sm:px-8 lg:px-12 xl:px-20',
-        'bg-[var(--color-background-alt)]'
+        'bg-white'
       )}
     >
-      {/* Background Pattern - Subtle Grid */}
-      <div className="absolute inset-0 opacity-[0.02] pointer-events-none">
-        <div className="absolute inset-0" style={{
-          backgroundImage: `repeating-linear-gradient(
-            0deg,
-            transparent,
-            transparent 40px,
-            var(--color-accent) 40px,
-            var(--color-accent) 41px
-          ),
-          repeating-linear-gradient(
-            90deg,
-            transparent,
-            transparent 40px,
-            var(--color-accent) 40px,
-            var(--color-accent) 41px
-          )`
-        }} />
-      </div>
 
       <div className="relative max-w-7xl mx-auto">
         {/* Section Header - Asymmetrical with Visual Element */}

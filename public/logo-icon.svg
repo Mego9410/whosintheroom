@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" fill="none">
+  <title>GuestSync Icon</title>
+  <desc>Simplified icon for favicon and small sizes</desc>
+  <defs>
+    <linearGradient id="brandGradientIcon" x1="0%" y1="0%" x2="100%" y2="100%" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#ff3b5c" />
+      <stop offset="50%" stop-color="#ff6b35" />
+      <stop offset="100%" stop-color="#ffa500" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Simplified stacked bars for small sizes -->
+  <rect x="20" y="80" width="20" height="20" rx="3" fill="url(#brandGradientIcon)" opacity="0.5" />
+  <rect x="50" y="60" width="20" height="40" rx="3" fill="url(#brandGradientIcon)" opacity="0.75" />
+  <rect x="80" y="30" width="20" height="70" rx="3" fill="url(#brandGradientIcon)" />
+</svg>
