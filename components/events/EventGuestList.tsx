@@ -18,13 +18,13 @@ interface EventGuestListProps {
   onUpdate: () => void;
 }
 
-const RSVP_STATUSES = [
+const RSVP_STATUSES: { value: string; label: string }[] = [
   { value: 'pending', label: 'Pending' },
   { value: 'invited', label: 'Invited' },
   { value: 'accepted', label: 'Accepted' },
   { value: 'declined', label: 'Declined' },
   { value: 'maybe', label: 'Maybe' },
-] as const;
+];
 
 const rsvpColors: Record<EventGuest['rsvp_status'], 'default' | 'success' | 'warning' | 'danger' | 'info'> = {
   pending: 'default',
