@@ -89,7 +89,7 @@ export function Sidebar() {
         {/* Navigation */}
         <nav className="flex-1 space-y-1 px-3 py-4">
           {navigation.map((item) => {
-            const isActive = pathname === item.href || (item.href !== '/dashboard' && pathname?.startsWith(item.href));
+            const isActive = pathname === item.href || (item.href !== '/dashboard' && (pathname?.startsWith(item.href) ?? false));
             const isHighlighted = item.highlight;
             
             return (
