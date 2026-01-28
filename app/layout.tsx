@@ -1,31 +1,63 @@
 import type { Metadata } from "next";
+import { DM_Serif_Display, DM_Sans } from 'next/font/google';
 import "./globals.css";
+import { generateMetadata as generateSEOMetadata } from "@/lib/seo/metadata";
+import { getOrganizationSchema, getWebSiteSchema, getSoftwareApplicationSchema } from "@/lib/seo/structured-data";
+import { GoogleAnalytics } from "@/components/analytics/GoogleAnalytics";
 
-export const metadata: Metadata = {
-  title: "GuestSync | Never miss a VIP at your events",
+const dmSerifDisplay = DM_Serif_Display({
+  subsets: ['latin'],
+  variable: '--font-display',
+  display: 'swap',
+  preload: true,
+  weight: '400',
+});
+
+const dmSans = DM_Sans({
+  subsets: ['latin'],
+  variable: '--font-body',
+  display: 'swap',
+  preload: true,
+  weight: ['300', '400', '500', '600', '700'],
+  style: ['normal', 'italic'],
+});
+
+export const metadata: Metadata = generateSEOMetadata({
+  title: "Never miss a VIP at your events",
   description:
     "AI ranks your guests so you know who to prioritize. Built for B2B event leads running conferences and summits. Free early access.",
-  keywords: [
-    "event management",
-    "guest management",
-    "CRM",
-    "event planning",
-    "corporate events",
-    "conference",
-    "summit",
-    "VIP tracking",
-    "AI event management",
-  ],
-};
+});
 
 export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const organizationSchema = getOrganizationSchema();
+  const websiteSchema = getWebSiteSchema();
+  const softwareSchema = getSoftwareApplicationSchema();
+
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="en" suppressHydrationWarning className={`${dmSerifDisplay.variable} ${dmSans.variable}`}>
       <head>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(organizationSchema),
+          }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(websiteSchema),
+          }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(softwareSchema),
+          }}
+        />
         <script
           dangerouslySetInnerHTML={{
             __html: `
@@ -44,6 +76,7 @@ export default function RootLayout({
         />
       </head>
       <body>
+        <GoogleAnalytics />
         {children}
       </body>
     </html>

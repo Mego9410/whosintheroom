@@ -86,6 +86,25 @@ export function Footer() {
                 >
                   Features
                 </a>
+                <Link
+                  href="/blog"
+                  className={cn(
+                    'text-sm font-medium text-[var(--color-text-muted)]',
+                    'hover:text-[var(--color-accent)] transition-colors'
+                  )}
+                >
+                  Blog
+                </Link>
+                <a
+                  href="#faq"
+                  onClick={(e) => scrollToSection(e, 'faq')}
+                  className={cn(
+                    'text-sm font-medium text-[var(--color-text-muted)]',
+                    'hover:text-[var(--color-accent)] transition-colors'
+                  )}
+                >
+                  FAQ
+                </a>
                 <a
                   href="#waitlist"
                   onClick={(e) => scrollToSection(e, 'waitlist')}
@@ -116,6 +135,24 @@ export function Footer() {
                   )}
                 >
                   Features
+                </Link>
+                <Link
+                  href="/blog"
+                  className={cn(
+                    'text-sm font-medium text-[var(--color-text-muted)]',
+                    'hover:text-[var(--color-accent)] transition-colors'
+                  )}
+                >
+                  Blog
+                </Link>
+                <Link
+                  href="/#faq"
+                  className={cn(
+                    'text-sm font-medium text-[var(--color-text-muted)]',
+                    'hover:text-[var(--color-accent)] transition-colors'
+                  )}
+                >
+                  FAQ
                 </Link>
                 <Link
                   href="/#waitlist"

@@ -91,6 +91,15 @@ export function Header() {
               >
                 Features
               </a>
+              <Link
+                href="/blog"
+                className={cn(
+                  'text-sm md:text-base font-medium text-[var(--color-text-muted)]',
+                  'hover:text-[var(--color-accent)] transition-colors'
+                )}
+              >
+                Blog
+              </Link>
               <a
                 href="#waitlist"
                 onClick={(e) => scrollToSection(e, 'waitlist')}
@@ -113,6 +122,16 @@ export function Header() {
                 )}
               >
                 Features
+              </Link>
+              <Link
+                href="/blog"
+                className={cn(
+                  'text-sm md:text-base font-medium text-[var(--color-text-muted)]',
+                  'hover:text-[var(--color-accent)] transition-colors',
+                  pathname?.startsWith('/blog') && 'text-[var(--color-accent)]'
+                )}
+              >
+                Blog
               </Link>
               <Link
                 href="/#waitlist"

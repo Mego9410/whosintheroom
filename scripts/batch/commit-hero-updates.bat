@@ -1,5 +1,5 @@
 @echo off
-cd /d "%~dp0"
+cd /d "%~dp0\..\.."
 
 echo Staging changes...
 git add components/landing/Hero.tsx

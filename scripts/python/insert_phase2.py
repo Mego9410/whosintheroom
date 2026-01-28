@@ -1,6 +1,13 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
+import os
+
+# Change to project root directory
+script_dir = os.path.dirname(os.path.abspath(__file__))
+project_root = os.path.join(script_dir, '..', '..')
+os.chdir(project_root)
+
 file_path = '.cursor/plans/event_guest_management_saas_94b10d1b.plan.md'
 
 with open(file_path, 'r', encoding='utf-8') as f:
@@ -35,8 +42,10 @@ content = content.replace(
     '    status: pending' + todos + '  - id: phase3-expo-setup'
 )
 
-# Read sections content from the other file
-with open('add_phase2_features.py', 'r', encoding='utf-8') as f:
+# Read sections content from the other file (same directory)
+script_dir = os.path.dirname(os.path.abspath(__file__))
+add_phase2_path = os.path.join(script_dir, 'add_phase2_features.py')
+with open(add_phase2_path, 'r', encoding='utf-8') as f:
     script_content = f.read()
     
 # Extract sections_content from the script

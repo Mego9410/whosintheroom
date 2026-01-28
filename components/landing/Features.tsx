@@ -278,7 +278,7 @@ export function Features() {
       id="features"
       ref={sectionRef}
       className={cn(
-        'relative pt-16 md:pt-20 pb-32 md:pb-40 px-6 sm:px-8 lg:px-12 xl:px-20',
+        'relative pt-16 md:pt-20 pb-12 md:pb-16 px-6 sm:px-8 lg:px-12 xl:px-20',
         'bg-[var(--color-background-alt)]'
       )}
     >
@@ -347,11 +347,12 @@ export function Features() {
           <div className="rounded-2xl overflow-hidden border-2 border-[var(--color-border)] bg-[var(--color-surface)] shadow-xl">
             <Image
               src="/hero-mockup.svg"
-              alt="Guest list with AI importance scores"
+              alt="GuestSync dashboard showing guest list with AI-powered importance scores, highlighting VIP guests ranked by influence, job title, and company"
               width={480}
               height={360}
               className="w-full h-auto object-contain"
-              unoptimized
+              priority={false}
+              loading="lazy"
             />
           </div>
           <p className="mt-4 text-sm text-[var(--color-text-muted)] font-body text-center">

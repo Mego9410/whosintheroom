@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import { Button } from '@/components/ui/Button';
 import { Input } from '@/components/ui/Input';
 import { cn } from '@/lib/utils/cn';
+import { trackWaitlistSignup } from '@/lib/analytics/gtag';
 
 export function WaitlistForm() {
   const [email, setEmail] = useState('');
@@ -56,6 +57,7 @@ export function WaitlistForm() {
 
       setSubmittedEmail(email.trim());
       setSuccess(true);
+      trackWaitlistSignup(email.trim());
       setEmail('');
       setName('');
       setShowNameField(false);
@@ -119,7 +121,7 @@ export function WaitlistForm() {
   }
 
   return (
-    <section id="waitlist" className="py-32 md:py-40 px-6 sm:px-8 lg:px-12 xl:px-20 bg-[var(--color-background)]">
+    <section id="waitlist" className="pt-16 md:pt-20 pb-32 md:pb-40 px-6 sm:px-8 lg:px-12 xl:px-20 bg-[var(--color-background)]">
       <div className="max-w-3xl mx-auto">
         {/* Section Header - No eyebrow; direct H2 */}
         <div className="mb-16 max-w-2xl">

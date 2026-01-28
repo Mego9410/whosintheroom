@@ -1,18 +1,29 @@
 import { Header } from '@/components/landing/Header';
 import { Footer } from '@/components/landing/Footer';
-import type { Metadata } from 'next';
+import { Breadcrumbs } from '@/components/ui/Breadcrumbs';
+import { generateMetadata } from '@/lib/seo/metadata';
 
-export const metadata: Metadata = {
-  title: "Terms & Conditions | GuestSync",
-  description: "Terms and conditions of use for GuestSync website and waitlist.",
-};
+export const metadata = generateMetadata({
+  title: 'Terms & Conditions',
+  description: 'Terms and conditions of use for GuestSync website and waitlist. Read our terms before using our event guest management platform.',
+  path: '/terms',
+});
 
 export default function TermsPage() {
+  const baseUrl = process.env.NEXT_PUBLIC_APP_URL || 'https://guestsync.com';
+  const breadcrumbs = [
+    { name: 'Home', url: baseUrl },
+    { name: 'Terms & Conditions', url: `${baseUrl}/terms` },
+  ];
+
   return (
     <>
       <Header />
       <main className="min-h-screen bg-[var(--color-background)]">
         <article className="max-w-3xl mx-auto px-6 sm:px-8 lg:px-12 xl:px-20 py-16 md:py-24">
+          <div className="mb-8">
+            <Breadcrumbs items={breadcrumbs} />
+          </div>
           <h1
             className="font-display text-3xl md:text-4xl lg:text-5xl text-[var(--color-primary)] mb-4"
             style={{ fontFamily: 'var(--font-display)' }}

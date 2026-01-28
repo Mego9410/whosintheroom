@@ -2,6 +2,12 @@
 # -*- coding: utf-8 -*-
 
 import re
+import os
+
+# Change to project root directory
+script_dir = os.path.dirname(os.path.abspath(__file__))
+project_root = os.path.join(script_dir, '..', '..')
+os.chdir(project_root)
 
 # Read the plan file
 with open('.cursor/plans/event_guest_management_saas_94b10d1b.plan.md', 'r', encoding='utf-8') as f:

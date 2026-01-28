@@ -4,6 +4,7 @@ import React, { useEffect, useState } from 'react';
 import { Button } from '@/components/ui/Button';
 import { AnimatedMockup } from '@/components/landing/AnimatedMockup';
 import { cn } from '@/lib/utils/cn';
+import { trackWaitlistSignup, trackCTAClick } from '@/lib/analytics/gtag';
 
 const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
@@ -95,6 +96,7 @@ export function Hero() {
         return;
       }
       setHeroSuccess(true);
+      trackWaitlistSignup(heroEmail.trim());
       setHeroEmail('');
     } catch {
       setHeroError('Something went wrong. Try again.');
@@ -110,6 +112,7 @@ export function Hero() {
         'overflow-hidden',
         'bg-[var(--color-background)]'
       )}
+      aria-label="Hero section"
     >
       {/* Dynamic Background Elements - More Organic */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
@@ -152,12 +155,13 @@ export function Hero() {
               )}
               style={{ fontFamily: 'var(--font-display)' }}
             >
-              <span className="gradient-text">GuestSync</span>
+              <span className="gradient-text">GuestSync</span>{' '}
+              <span className="sr-only">- AI-Powered Event Guest Management</span>
             </h1>
 
             {/* Value Proposition - Outcome-led */}
             <div className="space-y-6 max-w-2xl">
-              <p
+              <h2
                 className={cn(
                   'text-3xl md:text-4xl lg:text-5xl',
                   'text-[var(--color-text)]',
@@ -170,7 +174,7 @@ export function Hero() {
                   AI ranks your guests
                 </span>{' '}
                 so your whole team knows who to prioritize.
-              </p>
+              </h2>
 
               <p
                 className={cn(
@@ -192,7 +196,15 @@ export function Hero() {
                 'pt-2'
               )}
             >
-              <Button size="xl" variant="primary" className="min-w-[260px] group" onClick={(e) => scrollToWaitlist(e)}>
+              <Button
+                size="xl"
+                variant="primary"
+                className="min-w-[260px] group"
+                onClick={(e) => {
+                  trackCTAClick('Join Waitlist', 'Hero');
+                  scrollToWaitlist(e);
+                }}
+              >
                 <span>Join Waitlist</span>
                 <svg className="w-6 h-6 ml-2 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
@@ -201,7 +213,10 @@ export function Hero() {
               <Button
                 size="xl"
                 variant="outline"
-                onClick={(e) => scrollToHowItWorks(e)}
+                onClick={(e) => {
+                  trackCTAClick('See How It Works', 'Hero');
+                  scrollToHowItWorks(e);
+                }}
                 className="min-w-[260px]"
               >
                 See How It Works
