@@ -112,7 +112,7 @@ export function EventForm({ event, onSubmit, onCancel, isLoading = false }: Even
           <Select
             label="Status"
             value={formData.status}
-            onChange={(e) => setFormData({ ...formData, status: e.target.value })}
+            onChange={(e) => setFormData({ ...formData, status: e.target.value as Event['status'] })}
             options={[
               { value: 'draft', label: 'Draft' },
               { value: 'active', label: 'Active' },
