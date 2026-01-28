@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Suspense } from "react";
 import { DM_Serif_Display, DM_Sans } from 'next/font/google';
 import "./globals.css";
 import { generateMetadata as generateSEOMetadata } from "@/lib/seo/metadata";
@@ -76,7 +77,9 @@ export default function RootLayout({
         />
       </head>
       <body>
-        <GoogleAnalytics />
+        <Suspense fallback={null}>
+          <GoogleAnalytics />
+        </Suspense>
         {children}
       </body>
     </html>

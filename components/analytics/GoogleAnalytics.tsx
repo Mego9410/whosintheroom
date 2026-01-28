@@ -1,20 +1,21 @@
 'use client';
 
 import Script from 'next/script';
-import { usePathname, useSearchParams } from 'next/navigation';
+import { usePathname } from 'next/navigation';
 import { useEffect } from 'react';
 import { GA_TRACKING_ID, pageview } from '@/lib/analytics/gtag';
 
 export function GoogleAnalytics() {
   const pathname = usePathname();
-  const searchParams = useSearchParams();
 
   useEffect(() => {
-    if (!GA_TRACKING_ID) return;
+    if (!GA_TRACKING_ID || typeof window === 'undefined') return;
 
-    const url = pathname + (searchParams?.toString() ? `?${searchParams.toString()}` : '');
+    // Use window.location to get search params instead of useSearchParams
+    // This avoids the Suspense boundary requirement
+    const url = window.location.pathname + window.location.search;
     pageview(url);
-  }, [pathname, searchParams]);
+  }, [pathname]);
 
   if (!GA_TRACKING_ID) {
     return null;
