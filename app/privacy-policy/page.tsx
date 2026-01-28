@@ -3,8 +3,8 @@ import { Footer } from '@/components/landing/Footer';
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: "Privacy Policy | Who's in the Room",
-  description: "Privacy policy for Who's in the Room. How we collect, use, and protect your information.",
+  title: "Privacy Policy | GuestSync",
+  description: "Privacy policy for GuestSync. How we collect, use, and protect your information.",
 };
 
 export default function PrivacyPolicyPage() {
@@ -29,7 +29,7 @@ export default function PrivacyPolicyPage() {
                 1. Introduction
               </h2>
               <p>
-                Who&apos;s in the Room (&quot;we&quot;, &quot;our&quot;, or &quot;us&quot;) respects your privacy. This policy describes how we collect, use, and protect your information when you use our website and waitlist service.
+                GuestSync (&quot;we&quot;, &quot;our&quot;, or &quot;us&quot;) respects your privacy. This policy describes how we collect, use, and protect your information when you use our website and waitlist service.
               </p>
             </section>
 

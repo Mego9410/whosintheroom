@@ -74,7 +74,7 @@ export function Header() {
           )}
           style={{ fontFamily: 'var(--font-display)' }}
         >
-          Who&apos;s in the <span className="gradient-text">Room</span>
+          <span className="gradient-text">GuestSync</span>
         </Link>
 
         <nav className="flex items-center gap-6 md:gap-8" aria-label="Main">

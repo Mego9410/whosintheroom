@@ -152,11 +152,7 @@ export function Hero() {
               )}
               style={{ fontFamily: 'var(--font-display)' }}
             >
-              Who&apos;s in the{' '}
-              <span className="relative inline-block">
-                <span className="gradient-text">Room</span>
-                <span className="absolute -bottom-1 left-0 w-full h-2 bg-[var(--color-accent)] opacity-15 -skew-x-12" />
-              </span>
+              <span className="gradient-text">GuestSync</span>
             </h1>
 
             {/* Value Proposition - Outcome-led */}

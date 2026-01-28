@@ -60,7 +60,7 @@ export function Footer() {
             )}
             style={{ fontFamily: 'var(--font-display)' }}
           >
-            Who&apos;s in the <span className="gradient-text">Room</span>
+            <span className="gradient-text">GuestSync</span>
           </Link>
 
           <nav className="flex items-center gap-6 md:gap-8" aria-label="Footer">
@@ -133,7 +133,7 @@ export function Footer() {
 
         <div className="mt-10 pt-8 border-t border-[var(--color-border)] flex flex-col sm:flex-row items-center justify-between gap-4">
           <p className="text-sm text-[var(--color-text-muted)] text-center sm:text-left order-2 sm:order-1">
-            © {currentYear} Who&apos;s in the Room. All rights reserved.
+            © {currentYear} GuestSync. All rights reserved.
           </p>
           <div className="flex items-center gap-6 order-1 sm:order-2">
             <Link

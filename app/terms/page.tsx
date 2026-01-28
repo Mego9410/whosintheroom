@@ -3,8 +3,8 @@ import { Footer } from '@/components/landing/Footer';
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: "Terms & Conditions | Who's in the Room",
-  description: "Terms and conditions of use for Who's in the Room website and waitlist.",
+  title: "Terms & Conditions | GuestSync",
+  description: "Terms and conditions of use for GuestSync website and waitlist.",
 };
 
 export default function TermsPage() {
@@ -29,7 +29,7 @@ export default function TermsPage() {
                 1. Agreement to terms
               </h2>
               <p>
-                By accessing or using the Who&apos;s in the Room website and services (including the waitlist), you agree to be bound by these Terms &amp; Conditions. If you do not agree, do not use our services.
+                By accessing or using the GuestSync website and services (including the waitlist), you agree to be bound by these Terms &amp; Conditions. If you do not agree, do not use our services.
               </p>
             </section>
 
@@ -38,7 +38,7 @@ export default function TermsPage() {
                 2. Description of services
               </h2>
               <p>
-                Who&apos;s in the Room provides tools for event organisers to manage guest lists, prioritise attendees, and share information with teams and suppliers. We may offer a waitlist for early access, product updates, and related communications. Services and features may change over time.
+                GuestSync provides tools for event organisers to manage guest lists, prioritise attendees, and share information with teams and suppliers. We may offer a waitlist for early access, product updates, and related communications. Services and features may change over time.
               </p>
             </section>
 
@@ -62,7 +62,7 @@ export default function TermsPage() {
                 4. Intellectual property
               </h2>
               <p>
-                All content, branding, logos, and materials on our website and services are owned by Who&apos;s in the Room or our licensors. You may not copy, modify, distribute, or create derivative works without our prior written consent. You may view and use our website for your own lawful, personal use.
+                All content, branding, logos, and materials on our website and services are owned by GuestSync or our licensors. You may not copy, modify, distribute, or create derivative works without our prior written consent. You may view and use our website for your own lawful, personal use.
               </p>
             </section>
 
@@ -71,7 +71,7 @@ export default function TermsPage() {
                 5. Waitlist and early access
               </h2>
               <p>
-                Joining our waitlist does not guarantee access to any product or feature. We may invite waitlist participants in phases at our discretion. We may use the contact details you provide to send updates about Who&apos;s in the Room; you can unsubscribe from marketing at any time.
+                Joining our waitlist does not guarantee access to any product or feature. We may invite waitlist participants in phases at our discretion. We may use the contact details you provide to send updates about GuestSync; you can unsubscribe from marketing at any time.
               </p>
             </section>
 
@@ -89,7 +89,7 @@ export default function TermsPage() {
                 7. Limitation of liability
               </h2>
               <p>
-                To the fullest extent permitted by law, Who&apos;s in the Room and its affiliates, directors, employees, and agents shall not be liable for any indirect, incidental, special, consequential, or punitive damages, or any loss of profits, data, or goodwill, arising from your use of our services. Our total liability shall not exceed the amount you have paid us in the twelve (12) months preceding the claim, or one hundred pounds (GBP 100), whichever is greater.
+                To the fullest extent permitted by law, GuestSync and its affiliates, directors, employees, and agents shall not be liable for any indirect, incidental, special, consequential, or punitive damages, or any loss of profits, data, or goodwill, arising from your use of our services. Our total liability shall not exceed the amount you have paid us in the twelve (12) months preceding the claim, or one hundred pounds (GBP 100), whichever is greater.
               </p>
             </section>
 
@@ -98,7 +98,7 @@ export default function TermsPage() {
                 8. Indemnification
               </h2>
               <p>
-                You agree to indemnify and hold harmless Who&apos;s in the Room and its affiliates from any claims, damages, losses, or expenses (including reasonable legal fees) arising from your use of our services, your breach of these terms, or your violation of any third-party rights.
+                You agree to indemnify and hold harmless GuestSync and its affiliates from any claims, damages, losses, or expenses (including reasonable legal fees) arising from your use of our services, your breach of these terms, or your violation of any third-party rights.
               </p>
             </section>
 

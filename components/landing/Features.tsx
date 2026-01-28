@@ -71,7 +71,7 @@ function InteractivePreview() {
             <div className="w-2.5 h-2.5 rounded-full bg-[var(--color-border)]" />
             <div className="w-2.5 h-2.5 rounded-full bg-[var(--color-border)]" />
           </div>
-          <span className="text-xs text-[var(--color-text-muted)] font-medium ml-2">Who&apos;s in the Room — Product preview</span>
+          <span className="text-xs text-[var(--color-text-muted)] font-medium ml-2">GuestSync — Product preview</span>
         </div>
         {/* Preview Content */}
         <div className="p-8 space-y-6">

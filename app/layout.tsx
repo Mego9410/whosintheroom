@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Who's in the Room | Never miss a VIP at your events",
+  title: "GuestSync | Never miss a VIP at your events",
   description:
     "AI ranks your guests so you know who to prioritize. Built for B2B event leads running conferences and summits. Free early access.",
   keywords: [
