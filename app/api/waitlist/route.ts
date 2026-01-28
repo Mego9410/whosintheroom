@@ -1,8 +1,11 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { supabase } from '@/lib/supabase/server';
+import { supabase, validateSupabaseConfig } from '@/lib/supabase/server';
 
 export async function POST(request: NextRequest) {
   try {
+    // Validate environment variables at runtime
+    validateSupabaseConfig();
+    
     const body = await request.json();
     const { email, name } = body;
 

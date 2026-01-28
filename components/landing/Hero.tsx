@@ -20,29 +20,54 @@ export function Hero() {
 
   const scrollToSection = (id: string) => {
     if (typeof window === 'undefined') return;
-    try {
-      const el = document.getElementById(id);
-      if (el) {
-        el.scrollIntoView({ behavior: 'smooth' });
-      } else {
-        // Fallback: try scrolling after a short delay in case element isn't mounted yet
-        setTimeout(() => {
-          const delayedEl = document.getElementById(id);
-          if (delayedEl) {
-            delayedEl.scrollIntoView({ behavior: 'smooth' });
-          }
-        }, 100);
+    
+    const attemptScroll = () => {
+      try {
+        const el = document.getElementById(id);
+        if (el) {
+          // Calculate offset for sticky header
+          const headerHeight = 64; // Approximate header height
+          const elementPosition = el.getBoundingClientRect().top + window.pageYOffset;
+          const offsetPosition = elementPosition - headerHeight;
+
+          window.scrollTo({
+            top: offsetPosition,
+            behavior: 'smooth'
+          });
+          return true;
+        }
+        return false;
+      } catch (error) {
+        console.error('Error scrolling to section:', error);
+        return false;
       }
-    } catch (error) {
-      console.error('Error scrolling to section:', error);
+    };
+
+    // Try immediately
+    if (!attemptScroll()) {
+      // Try after a short delay
+      setTimeout(() => {
+        if (!attemptScroll()) {
+          // Try after a longer delay as last resort
+          setTimeout(() => {
+            attemptScroll();
+          }, 300);
+        }
+      }, 100);
     }
   };
 
-  const scrollToHowItWorks = () => {
+  const scrollToHowItWorks = (e?: React.MouseEvent) => {
+    if (e) {
+      e.preventDefault();
+    }
     scrollToSection('how-it-works');
   };
   
-  const scrollToWaitlist = () => {
+  const scrollToWaitlist = (e?: React.MouseEvent) => {
+    if (e) {
+      e.preventDefault();
+    }
     scrollToSection('waitlist');
   };
 
@@ -171,7 +196,7 @@ export function Hero() {
                 'pt-2'
               )}
             >
-              <Button size="lg" variant="primary" className="min-w-[220px] group" onClick={scrollToWaitlist}>
+              <Button size="lg" variant="primary" className="min-w-[220px] group" onClick={(e) => scrollToWaitlist(e)}>
                 <span>Join Waitlist</span>
                 <svg className="w-5 h-5 ml-2 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
@@ -180,7 +205,7 @@ export function Hero() {
               <Button
                 size="lg"
                 variant="outline"
-                onClick={scrollToHowItWorks}
+                onClick={(e) => scrollToHowItWorks(e)}
                 className="min-w-[220px]"
               >
                 See How It Works
@@ -275,7 +300,7 @@ export function Hero() {
       {/* Scroll Indicator - More Distinctive */}
       <div className="absolute bottom-12 left-12 hidden lg:block">
         <button
-          onClick={scrollToHowItWorks}
+          onClick={(e) => scrollToHowItWorks(e)}
           className="flex flex-col items-center gap-3 group"
           aria-label="Scroll to how it works"
         >

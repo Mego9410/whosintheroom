@@ -12,6 +12,7 @@ export function WaitlistForm() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState('');
   const [success, setSuccess] = useState(false);
+  const [submittedEmail, setSubmittedEmail] = useState('');
 
   const validateEmail = (email: string) => {
     const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -53,6 +54,7 @@ export function WaitlistForm() {
         return;
       }
 
+      setSubmittedEmail(email.trim());
       setSuccess(true);
       setEmail('');
       setName('');
@@ -66,7 +68,7 @@ export function WaitlistForm() {
 
   if (success) {
     return (
-      <section className="py-32 md:py-40 px-6 sm:px-8 lg:px-12 xl:px-20 bg-[var(--color-background)]">
+      <section id="waitlist" className="py-32 md:py-40 px-6 sm:px-8 lg:px-12 xl:px-20 bg-[var(--color-background)]">
         <div className="max-w-3xl mx-auto text-center">
           <div className="mb-12">
             <div className="w-24 h-24 mx-auto mb-8 rounded-full bg-gradient-to-br from-[#ff3b5c] via-[#ff6b35] to-[#ffa500] flex items-center justify-center shadow-2xl transform hover:scale-110 transition-transform duration-300">
@@ -92,10 +94,15 @@ export function WaitlistForm() {
               )}
               style={{ fontFamily: 'var(--font-display)' }}
             >
-              You're on the list!
+              You&apos;re on the list!
             </h2>
             <p className="text-xl text-[var(--color-text-muted)] font-body leading-relaxed">
-              We'll notify you as soon as we launch. Thank you for your interest!
+              {submittedEmail ? (
+                <>We&apos;ll email you at <span className="font-semibold text-[var(--color-text)]">{submittedEmail}</span> when we launch.</>
+              ) : (
+                'We&apos;ll notify you as soon as we launch.'
+              )}{' '}
+              Thank you for your interest!
             </p>
           </div>
           <Button
@@ -112,16 +119,10 @@ export function WaitlistForm() {
   }
 
   return (
-    <section className="py-32 md:py-40 px-6 sm:px-8 lg:px-12 xl:px-20 bg-[var(--color-background)]">
+    <section id="waitlist" className="py-32 md:py-40 px-6 sm:px-8 lg:px-12 xl:px-20 bg-[var(--color-background)]">
       <div className="max-w-3xl mx-auto">
-        {/* Section Header - Asymmetrical */}
+        {/* Section Header - No eyebrow; direct H2 */}
         <div className="mb-16 max-w-2xl">
-          <div className="inline-flex items-center gap-3 mb-6">
-            <div className="w-16 h-px bg-[var(--color-accent)]" />
-            <span className="text-sm uppercase tracking-widest text-[var(--color-text-muted)] font-medium">
-              Early Access
-            </span>
-          </div>
           <h2
             className={cn(
               'font-display text-4xl md:text-5xl',
@@ -131,8 +132,7 @@ export function WaitlistForm() {
             )}
             style={{ fontFamily: 'var(--font-display)' }}
           >
-            Join the{' '}
-            <span className="gradient-text">waitlist</span>
+            Get <span className="gradient-text">early access</span>
           </h2>
           <p
             className={cn(
@@ -142,7 +142,7 @@ export function WaitlistForm() {
               'leading-relaxed'
             )}
           >
-            Be among the first to experience the future of event management
+            Be first to try Who&apos;s in the Room. Free early access—no credit card required.
           </p>
         </div>
 
@@ -217,7 +217,7 @@ export function WaitlistForm() {
             className="w-full group"
             disabled={isSubmitting}
           >
-            <span>{isSubmitting ? 'Joining...' : 'Join Waitlist'}</span>
+            <span>{isSubmitting ? 'Joining...' : 'Get early access'}</span>
             {!isSubmitting && (
               <svg className="w-5 h-5 ml-2 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
@@ -233,7 +233,7 @@ export function WaitlistForm() {
               'pt-2'
             )}
           >
-            We respect your privacy. Unsubscribe at any time.
+            Free early access. No credit card. We respect your privacy—unsubscribe at any time.
           </p>
         </form>
       </div>

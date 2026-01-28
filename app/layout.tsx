@@ -1,17 +1,18 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import { ThemeToggle } from "@/components/ui/ThemeToggle";
 
 export const metadata: Metadata = {
-  title: "Who's in the Room | AI-Powered Event Guest Management",
+  title: "Who's in the Room | Never miss a VIP at your events",
   description:
-    "Prioritize your most important guests with AI-powered intelligence. Manage events, track suppliers, and never miss a VIP again.",
+    "AI ranks your guests so you know who to prioritize. Built for B2B event leads running conferences and summits. Free early access.",
   keywords: [
     "event management",
     "guest management",
     "CRM",
     "event planning",
     "corporate events",
+    "conference",
+    "summit",
     "VIP tracking",
     "AI event management",
   ],
@@ -43,10 +44,6 @@ export default function RootLayout({
         />
       </head>
       <body>
-        {/* Theme Toggle - Fixed Position */}
-        <div className="fixed top-6 right-6 z-50">
-          <ThemeToggle />
-        </div>
         {children}
       </body>
     </html>

@@ -8,13 +8,40 @@ import { cn } from '@/lib/utils/cn';
 function scrollToSection(e: React.MouseEvent<HTMLAnchorElement>, id: string) {
   e.preventDefault();
   if (typeof window === 'undefined') return;
-  try {
-    const el = document.getElementById(id);
-    if (el) {
-      el.scrollIntoView({ behavior: 'smooth' });
+  
+  const attemptScroll = () => {
+    try {
+      const el = document.getElementById(id);
+      if (el) {
+        // Calculate offset for sticky header
+        const headerHeight = 64; // Approximate header height
+        const elementPosition = el.getBoundingClientRect().top + window.pageYOffset;
+        const offsetPosition = elementPosition - headerHeight;
+
+        window.scrollTo({
+          top: offsetPosition,
+          behavior: 'smooth'
+        });
+        return true;
+      }
+      return false;
+    } catch (error) {
+      console.error('Error scrolling to section:', error);
+      return false;
     }
-  } catch (error) {
-    console.error('Error scrolling to section:', error);
+  };
+
+  // Try immediately
+  if (!attemptScroll()) {
+    // Try after a short delay
+    setTimeout(() => {
+      if (!attemptScroll()) {
+        // Try after a longer delay as last resort
+        setTimeout(() => {
+          attemptScroll();
+        }, 300);
+      }
+    }, 100);
   }
 }
 
@@ -24,8 +51,14 @@ export function Header() {
       className={cn(
         'sticky top-0 z-50 w-full',
         'bg-[var(--color-background)]/80 backdrop-blur-md',
-        'border-b border-[var(--color-border)]'
+        'border-b border-[var(--color-border)]',
+        'supports-[backdrop-filter]:bg-[var(--color-background)]/80',
+        'supports-[backdrop-filter]:backdrop-blur-md'
       )}
+      style={{
+        backgroundColor: 'var(--color-background)',
+        opacity: 0.95,
+      }}
     >
       <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 xl:px-20 flex items-center justify-between h-16">
         <Link
