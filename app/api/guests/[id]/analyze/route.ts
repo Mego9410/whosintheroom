@@ -3,6 +3,7 @@ import { analyzeGuest } from '@/lib/services/importance-scorer';
 import { getGuestById } from '@/lib/data/guests';
 import { getEventById } from '@/lib/data/events';
 import type { AnalyzeGuestRequest, AnalyzeGuestResponse } from '@/lib/types/scoring';
+import type { Event } from '@/lib/types';
 
 export async function POST(
   request: NextRequest,
@@ -32,9 +33,10 @@ export async function POST(
     }
 
     // Fetch event if eventId provided
-    let event = undefined;
+    let event: Event | undefined = undefined;
     if (eventId) {
-      event = await getEventById(eventId);
+      const fetchedEvent = await getEventById(eventId);
+      event = fetchedEvent ?? undefined;
     }
 
     // Analyze guest
