@@ -2,12 +2,35 @@
 
 import OpenAI from 'openai';
 
-if (!process.env.OPENAI_API_KEY) {
-  throw new Error('OPENAI_API_KEY is not set in environment variables');
+let _openai: OpenAI | null = null;
+
+function getOpenAIClient(): OpenAI {
+  if (!_openai) {
+    const apiKey = process.env.OPENAI_API_KEY;
+    // Check if we're in a build context
+    // During build, Next.js/Vercel might not have all env vars available
+    const isBuildTime = process.env.NEXT_PHASE === 'phase-production-build' || 
+                        process.env.VERCEL === '1' && !process.env.VERCEL_ENV;
+    
+    if (!apiKey && !isBuildTime) {
+      // Runtime check - throw proper error only at runtime
+      throw new Error('OPENAI_API_KEY is not set in environment variables');
+    }
+    
+    // Initialize with actual key or placeholder (placeholder will fail gracefully at runtime)
+    _openai = new OpenAI({
+      apiKey: apiKey || 'placeholder-for-build',
+    });
+  }
+  return _openai;
 }
 
-export const openai = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY,
+// Lazy initialization - only creates client when actually used (not at module load time)
+// This prevents build-time errors when the env var isn't set
+export const openai = new Proxy({} as OpenAI, {
+  get(_target, prop) {
+    return getOpenAIClient()[prop as keyof OpenAI];
+  },
 });
 
 // Default model configuration

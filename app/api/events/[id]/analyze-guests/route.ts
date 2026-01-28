@@ -4,6 +4,9 @@ import { getEventById } from '@/lib/data/events';
 import { getGuestsByEvent } from '@/lib/data/event-guests';
 import type { AnalyzeEventGuestsRequest, AnalyzeEventGuestsResponse } from '@/lib/types/scoring';
 
+// Force dynamic rendering to prevent build-time analysis
+export const dynamic = 'force-dynamic';
+
 export async function POST(
   request: NextRequest,
   { params }: { params: { id: string } }
