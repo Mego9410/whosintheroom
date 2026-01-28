@@ -47,7 +47,7 @@ export function HowItWorks() {
     <section
       id="how-it-works"
       className={cn(
-        'relative py-24 md:py-32 px-6 sm:px-8 lg:px-12 xl:px-20',
+        'relative pt-24 md:pt-32 pb-16 md:pb-20 px-6 sm:px-8 lg:px-12 xl:px-20',
         'bg-[var(--color-background-alt)]'
       )}
     >

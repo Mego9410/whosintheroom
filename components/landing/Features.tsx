@@ -278,7 +278,7 @@ export function Features() {
       id="features"
       ref={sectionRef}
       className={cn(
-        'relative py-32 md:py-40 px-6 sm:px-8 lg:px-12 xl:px-20',
+        'relative pt-16 md:pt-20 pb-32 md:pb-40 px-6 sm:px-8 lg:px-12 xl:px-20',
         'bg-[var(--color-background-alt)]'
       )}
     >

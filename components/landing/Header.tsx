@@ -2,6 +2,7 @@
 
 import React from 'react';
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import { ThemeToggle } from '@/components/ui/ThemeToggle';
 import { cn } from '@/lib/utils/cn';
 
@@ -46,6 +47,9 @@ function scrollToSection(e: React.MouseEvent<HTMLAnchorElement>, id: string) {
 }
 
 export function Header() {
+  const pathname = usePathname();
+  const isHome = pathname === '/';
+
   return (
     <header
       className={cn(
@@ -74,27 +78,53 @@ export function Header() {
         </Link>
 
         <nav className="flex items-center gap-6 md:gap-8" aria-label="Main">
-          <a
-            href="#features"
-            onClick={(e) => scrollToSection(e, 'features')}
-            className={cn(
-              'text-sm md:text-base font-medium text-[var(--color-text-muted)]',
-              'hover:text-[var(--color-accent)] transition-colors',
-              'hidden sm:inline'
-            )}
-          >
-            Features
-          </a>
-          <a
-            href="#waitlist"
-            onClick={(e) => scrollToSection(e, 'waitlist')}
-            className={cn(
-              'text-sm md:text-base font-semibold',
-              'text-[var(--color-accent)] hover:opacity-80 transition-opacity'
-            )}
-          >
-            Join waitlist
-          </a>
+          {isHome ? (
+            <>
+              <a
+                href="#features"
+                onClick={(e) => scrollToSection(e, 'features')}
+                className={cn(
+                  'text-sm md:text-base font-medium text-[var(--color-text-muted)]',
+                  'hover:text-[var(--color-accent)] transition-colors',
+                  'hidden sm:inline'
+                )}
+              >
+                Features
+              </a>
+              <a
+                href="#waitlist"
+                onClick={(e) => scrollToSection(e, 'waitlist')}
+                className={cn(
+                  'text-sm md:text-base font-semibold',
+                  'text-[var(--color-accent)] hover:opacity-80 transition-opacity'
+                )}
+              >
+                Join waitlist
+              </a>
+            </>
+          ) : (
+            <>
+              <Link
+                href="/#features"
+                className={cn(
+                  'text-sm md:text-base font-medium text-[var(--color-text-muted)]',
+                  'hover:text-[var(--color-accent)] transition-colors',
+                  'hidden sm:inline'
+                )}
+              >
+                Features
+              </Link>
+              <Link
+                href="/#waitlist"
+                className={cn(
+                  'text-sm md:text-base font-semibold',
+                  'text-[var(--color-accent)] hover:opacity-80 transition-opacity'
+                )}
+              >
+                Join waitlist
+              </Link>
+            </>
+          )}
           <ThemeToggle />
         </nav>
       </div>

@@ -106,7 +106,7 @@ export function Hero() {
   return (
     <section
       className={cn(
-        'relative min-h-screen flex items-center px-6 sm:px-8 lg:px-12 xl:px-20',
+        'relative flex items-start pt-24 md:pt-28 lg:pt-32 pb-16 md:pb-20 lg:pb-24 px-6 sm:px-8 lg:px-12 xl:px-20',
         'overflow-hidden',
         'bg-[var(--color-background)]'
       )}
@@ -196,17 +196,17 @@ export function Hero() {
                 'pt-2'
               )}
             >
-              <Button size="lg" variant="primary" className="min-w-[220px] group" onClick={(e) => scrollToWaitlist(e)}>
+              <Button size="xl" variant="primary" className="min-w-[260px] group" onClick={(e) => scrollToWaitlist(e)}>
                 <span>Join Waitlist</span>
-                <svg className="w-5 h-5 ml-2 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg className="w-6 h-6 ml-2 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
                 </svg>
               </Button>
               <Button
-                size="lg"
+                size="xl"
                 variant="outline"
                 onClick={(e) => scrollToHowItWorks(e)}
-                className="min-w-[220px]"
+                className="min-w-[260px]"
               >
                 See How It Works
               </Button>
@@ -247,8 +247,8 @@ export function Hero() {
                   <Button
                     type="submit"
                     variant="primary"
-                    size="lg"
-                    className="sm:min-w-[180px] shrink-0"
+                    size="xl"
+                    className="sm:min-w-[200px] shrink-0"
                     disabled={heroSubmitting}
                   >
                     {heroSubmitting ? 'Joining…' : 'Get early access'}
@@ -297,21 +297,6 @@ export function Hero() {
         </div>
       </div>
 
-      {/* Scroll Indicator - More Distinctive */}
-      <div className="absolute bottom-12 left-12 hidden lg:block">
-        <button
-          onClick={(e) => scrollToHowItWorks(e)}
-          className="flex flex-col items-center gap-3 group"
-          aria-label="Scroll to how it works"
-        >
-          <span className="text-xs text-[var(--color-text-light)] uppercase tracking-widest font-medium transform -rotate-90 whitespace-nowrap">
-            Scroll
-          </span>
-          <div className="w-8 h-12 border-2 border-[var(--color-text-light)] rounded-full flex items-start justify-center p-2 group-hover:border-[var(--color-accent)] transition-colors">
-            <div className="w-1.5 h-4 bg-[var(--color-text-light)] rounded-full group-hover:bg-[var(--color-accent)] transition-colors animate-bounce" />
-          </div>
-        </button>
-      </div>
     </section>
   );
 }
