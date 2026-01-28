@@ -19,12 +19,32 @@ export function Hero() {
   }, []);
 
   const scrollToSection = (id: string) => {
-    const el = document.getElementById(id);
-    if (el) el.scrollIntoView({ behavior: 'smooth' });
+    if (typeof window === 'undefined') return;
+    try {
+      const el = document.getElementById(id);
+      if (el) {
+        el.scrollIntoView({ behavior: 'smooth' });
+      } else {
+        // Fallback: try scrolling after a short delay in case element isn't mounted yet
+        setTimeout(() => {
+          const delayedEl = document.getElementById(id);
+          if (delayedEl) {
+            delayedEl.scrollIntoView({ behavior: 'smooth' });
+          }
+        }, 100);
+      }
+    } catch (error) {
+      console.error('Error scrolling to section:', error);
+    }
   };
 
-  const scrollToHowItWorks = () => scrollToSection('how-it-works');
-  const scrollToWaitlist = () => scrollToSection('waitlist');
+  const scrollToHowItWorks = () => {
+    scrollToSection('how-it-works');
+  };
+  
+  const scrollToWaitlist = () => {
+    scrollToSection('waitlist');
+  };
 
   const handleHeroSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
